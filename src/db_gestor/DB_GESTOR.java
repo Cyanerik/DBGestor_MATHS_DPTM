@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db_gestor;
 
+import java.sql.*;
+import javax.sql.*;
 /**
  *
- * @author UJA
+ * @author Erik Tordera Bermejo (@Cyanerik on GitHub @Cianerik on twitter)
  */
 public class DB_GESTOR {
 
