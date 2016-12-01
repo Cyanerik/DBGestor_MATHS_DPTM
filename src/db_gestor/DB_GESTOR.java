@@ -15,6 +15,7 @@ public class DB_GESTOR {
      */
     public static void main(String[] args) {
         MainWindow w = new MainWindow();
+        w.init();
     }
     
 }
