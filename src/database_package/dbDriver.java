@@ -24,6 +24,24 @@ public class dbDriver {
             return null;
         }
     }
+    
+    public Object[][] executeSelect(String[] fields, String table, String where)
+    {
+        String stmt = "SELECT ";
+        for (String field : fields) {
+            stmt = stmt + field + ", ";
+        }
+        stmt = stmt + "FROM " + table;
+        
+        if(where.equals(""))
+        {
+            stmt = stmt + where;
+        }
+        
+        System.out.println(stmt + "\n");
+        
+        return null;
+    }
     private dbDriver()
     {
         try

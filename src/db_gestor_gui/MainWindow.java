@@ -2,15 +2,19 @@ package db_gestor_gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 import auxPackage.*;
+import javax.imageio.ImageIO;
 
 public class MainWindow extends JFrame{
     
     private JPanel mainPanel;
         private JToolBar toolBar;
             private JComboBox tableSelect;
+        private JPanel screen;
+            private DBGTable table;
     
     private JPanel functionPanel;
     
@@ -65,11 +69,38 @@ public class MainWindow extends JFrame{
         mainPanel.setBackground(Color.red); //GETTING INFO ABOUT COMPOSITION
         this.createToolBar(Definitions.DBG_MAIN_PANEL);
         
-        //TODO CREATE TABLE
+        this.createScreen(Definitions.DBG_FAMILY_DATA);
         
         this.add(mainPanel, BorderLayout.LINE_START);
     }
     
+    
+    protected void createScreen(int data)
+    {
+        screen = new JPanel(new BorderLayout());
+        screen.setBackground(Color.green);
+        mainPanel.add(screen);
+        
+        screen.add(new JPanel(), BorderLayout.LINE_START);
+        screen.add(new JPanel(), BorderLayout.LINE_END);
+        screen.add(new JPanel(), BorderLayout.PAGE_START);
+        screen.add(new JPanel(), BorderLayout.PAGE_END);
+        
+        switch(data)
+        {
+            case(Definitions.DBG_FAMILY_DATA):
+            {
+                  table = new DBGTable(Definitions.DBG_FAMILY_DATA);
+            }break;
+            case(Definitions.DBG_JOURNAL_DATA):
+            {
+              //  table.fill("");
+            }break;
+            default:{}break;
+        }
+        
+        screen.add(table, BorderLayout.CENTER);
+    }
     
     protected void createToolBar(int loc)
     {
@@ -146,37 +177,24 @@ public class MainWindow extends JFrame{
         
         JButton refresh = new JButton();
         
-        ImageIcon image = createImageIcon("/assets/refresh.png");
-        refresh.setIcon(image);
+        try
+        {
+        System.out.println("Working Directory = " +
+              System.getProperty("user.dir"));
+        BufferedImage buttonImage = ImageIO.read(new File("./src/assets/refresh_2.png"));
+        refresh.setIcon(new ImageIcon(buttonImage));
+        
+        }catch(Exception e)
+        {
+            return;
+        }
+        toolB.addSeparator();
+        toolB.add(refresh);
         
         //////////////REFRESH BUTTON/////////////////////////
         
-        
-        
-        
+           
     }
     
-    protected ImageIcon createImageIcon(String path)
-    {
-        
-        try{
-            java.net.URL imgURL = getClass().getResource(path);
-            if(imgURL != null)
-            {
-              return new ImageIcon(path);
-            }
-            throw new RuntimeException("Cannot find "+path);
-        }catch(RuntimeException e)
-        {
-            path = ".." + path;
-            java.net.URL imgURL = getClass().getResource("..\\../");
-            System.err.println(imgURL.toString());
-            if(imgURL != null)
-            {
-              return new ImageIcon(path);
-            }
-            throw new RuntimeException("Cannot find "+ path);
-        }
-    }
     public MainWindow(){}
 }
